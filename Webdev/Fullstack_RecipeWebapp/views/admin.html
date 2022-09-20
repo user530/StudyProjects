@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Recipe Pages - Admin page</title>
+  </head>
+  <body>
+    <div id="overlay"></div>
+    <div class="page-wrapper">
+      <!-- HEADER -->
+      <div class="header-top-wrapper">
+        <div class="container">
+          <div class="header-top flex-wrapper">
+            <a href="/" class="logo">
+              <img src="../img/logo.png" alt="logo" />
+            </a>
+
+            <!-- NAV MENU -->
+            <div id="navMenu" class="nav-menu flex-wrapper">
+              <a href="/">Main page</a>
+              <a href="/search">Search page</a>
+              <a href="/authorization">Authorization</a>
+              <a class="active-link" href="/admin">Admin page</a>
+              <a href="/create/recipe">Create recipe</a>
+            </div>
+
+            <button
+              type="button"
+              id="menu-toggle"
+              class="menu-toggle"
+              onclick="mobMenuClick(this,event)"
+            >
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEADER BANNER -->
+      <div
+        class="header-banner header-banner--short"
+        style="background-image: url(../img/adminBanner.jpg)"
+      >
+        <div class="container">
+          <div class="header-banner__title">
+            <h1 class="title-1">Admin panel:</h1>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <main class="main-page recipes-page">
+        <div class="container">
+          <!-- DIETS TABLE -->
+          <% if(typeof recipes !== 'undefined') { const t_name = `RECIPES:`; %>
+          <div class="title-2"><%=t_name%></div>
+          <table class="recipe-table">
+            <tr>
+              <% for(const key in recipes[0]){ %>
+              <th><%= key %></th>
+              <% } %>
+              <th></th>
+            </tr>
+            <% for(const row of recipes) {%>
+            <tr>
+              <% const id = row[Object.keys(row)[0]]; const name =
+              row[Object.keys(row)[1]]; %>
+              <td><%= id %></td>
+              <td><a href="/recipe/<%=id%>"><%= name %></a></td>
+              <td>
+                <form
+                  action="/delete/recipe/<%= id %> "
+                  onsubmit="event.preventDefault(); const c = confirm(`Are you sure you want to delete <%=name%>?`); if(c)this.submit()"
+                >
+                  <input
+                    type="submit"
+                    value="Delete"
+                    class="btn btn--danger w-100"
+                  />
+                </form>
+              </td>
+            </tr>
+            <% } %>
+          </table>
+
+          <form action="/create/recipe" class="w-100 mt-40">
+            <input
+              type="submit"
+              value="Create new"
+              class="btn btn--large w-50"
+            />
+          </form>
+
+          <% } %>
+        </div>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-content flex-wrapper">
+            <p>&copy; Copyright 2022</p>
+            <p>
+              UOL - CM2020 - Agile Software Projects - Team 10 (Tutor Group 2)
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="/js/scripts.js"></script>
+  </body>
+</html>

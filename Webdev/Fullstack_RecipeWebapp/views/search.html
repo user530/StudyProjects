@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Recipe Pages - Advanced search</title>
+  </head>
+  <body>
+    <div id="overlay"></div>
+    <div class="page-wrapper">
+      <!-- HEADER -->
+      <div class="header-top-wrapper">
+        <div class="container">
+          <div class="header-top flex-wrapper">
+            <a href="/" class="logo">
+              <img src="../img/logo.png" alt="logo" />
+            </a>
+
+            <!-- NAV MENU -->
+            <div id="navMenu" class="nav-menu flex-wrapper">
+              <a href="/">Main page</a>
+              <a class="active-link" href="/search">Search page</a>
+              <a href="/authorization">Authorization</a>
+              <a href="/admin">Admin page</a>
+              <a href="/create/recipe">Create recipe</a>
+            </div>
+            <button
+              type="button"
+              id="menu-toggle"
+              class="menu-toggle"
+              onclick="mobMenuClick(this,event)"
+            >
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEADER -->
+      <div
+        class="header-banner header-banner--short"
+        style="background-image: url(../img/searchBanner.jpg)"
+      >
+        <div class="container">
+          <div class="header-banner__title">
+            <h1 class="title-1">Search recipe:</h1>
+          </div>
+        </div>
+      </div>
+
+      <!-- SYSTEM MESSAGES -->
+      <% if (typeof(msg)!= `undefined`) {%>
+      <div class="notify-chips">
+        <p><%= msg%></p>
+        <div id="close-chips" onclick="closeChips(this)">+</div>
+      </div>
+      <% } %>
+
+      <!-- MAIN -->
+      <main class="main-page">
+        <div class="container">
+          <div>
+            <form action="" method="post" class="form-grid-column">
+              <!-- NAME FILTER SECTION -->
+              <div class="form-item grid-wrapper">
+                <label for="filter_name" class="label-text"
+                  >Filter by name:
+                </label>
+                <input
+                  name="filter_name"
+                  class="form-field-small"
+                  type="text"
+                  placeholder="name"
+                />
+              </div>
+
+              <!-- PREPTIME FILTER SECTION -->
+
+              <div class="grid-wrapper">
+                <div class="form-item">
+                  <label
+                    for="filter_preptime"
+                    class="flex-wrapper form-item-label"
+                  >
+                    <span class="label-text">Filter by preptime:</span>
+                    <input
+                      type="checkbox"
+                      name="filter_preptime"
+                      class="fake-chekbox-input"
+                      id="filter_preptime"
+                    />
+                    <div class="fake-checkbox"></div>
+                  </label>
+                </div>
+                <div id="preptime_fields" class="grid-column">
+                  <div class="flex-column">
+                    <label for="filter_preptime_min">Min time:</label>
+                    <input
+                      name="filter_preptime_min"
+                      type="number"
+                      class="form-field-small"
+                    />
+                  </div>
+                  <div class="flex-column">
+                    <label for="filter_preptime_max">Max time:</label>
+                    <input
+                      name="filter_preptime_max"
+                      type="number"
+                      class="form-field-small"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- DIET FILTER SECTION -->
+              <div class="grid-wrapper">
+                <div class="form-item">
+                  <label
+                    for="filter_diets_incl"
+                    class="flex-wrapper form-item-label"
+                  >
+                    <span class="label-text">Include diet tags:</span>
+                    <input
+                      type="checkbox"
+                      name="filter_diets_incl"
+                      class="fake-chekbox-input"
+                      id="filter_diets_incl"
+                    />
+                    <div class="fake-checkbox"></div>
+                  </label>
+                </div>
+
+                <div id="diet_incl_fields" class="grid-column">
+                  <select name="diets_incl" class="diets_incl form-field-small">
+                    <option value="0"></option>
+
+                    <% for(const dietObj of diets){%>
+                    <option value="<%=dietObj.diet_id%>">
+                      <%=dietObj.diet_name%>
+                    </option>
+                    <% } %>
+                  </select>
+
+                  <input
+                    id="addDietBtn1"
+                    type="button"
+                    value="Add Diet"
+                    onclick="addOptionTag(`#addDietBtn1`,`.diets_incl`)"
+                    class="btn"
+                  />
+                </div>
+              </div>
+
+              <div class="grid-wrapper">
+                <div class="form-item">
+                  <label
+                    for="filter_diets_excl"
+                    class="flex-wrapper form-item-label"
+                  >
+                    <span class="label-text">Exclude diet tags:</span>
+                    <input
+                      type="checkbox"
+                      name="filter_diets_excl"
+                      id="filter_diets_excl"
+                      class="fake-chekbox-input"
+                    />
+                    <div class="fake-checkbox"></div>
+                  </label>
+                </div>
+
+                <div id="diet_excl_fields" class="grid-column">
+                  <select name="diets_excl" class="diets_excl form-field-small">
+                    <option value="0"></option>
+
+                    <% for(const dietObj of diets){%>
+                    <option value="<%=dietObj.diet_id%>">
+                      <%=dietObj.diet_name%>
+                    </option>
+                    <% } %>
+                  </select>
+
+                  <input
+                    id="addDietBtn2"
+                    type="button"
+                    value="Add Diet"
+                    onclick="addOptionTag(`#addDietBtn2`,`.diets_excl`)"
+                    class="btn"
+                  />
+                </div>
+              </div>
+
+              <!-- INGREDIENTS FILTER SECTION -->
+
+              <div class="grid-wrapper">
+                <div class="form-item">
+                  <label
+                    for="filter_ingredients_incl"
+                    class="flex-wrapper form-item-label"
+                  >
+                    <span class="label-text">Include ingredient:</span>
+                    <input
+                      type="checkbox"
+                      name="filter_ingredients_incl"
+                      id="filter_ingredients_incl"
+                      class="fake-chekbox-input"
+                    />
+                    <div class="fake-checkbox"></div>
+                  </label>
+                </div>
+
+                <div id="ingr_incl_fields" class="grid-column">
+                  <select
+                    name="ingredients_incl"
+                    class="ingredients_incl form-field-small"
+                  >
+                    <option value="0"></option>
+
+                    <% for(const ingrObj of ingredients){%>
+                    <option value="<%=ingrObj.ingredient_id%>">
+                      <%=ingrObj.ingredient_name%>
+                    </option>
+                    <% } %>
+                  </select>
+
+                  <input
+                    id="addIngrBtn1"
+                    type="button"
+                    value="Add Ingredient"
+                    onclick="addOptionTag(`#addIngrBtn1`,`.ingredients_incl`)"
+                    class="btn"
+                  />
+                </div>
+              </div>
+
+              <div class="grid-wrapper">
+                <div class="form-item">
+                  <label
+                    for="filter_ingredients_excl"
+                    class="flex-wrapper form-item-label"
+                  >
+                    <span class="label-text">Exclude ingredient:</span>
+                    <input
+                      type="checkbox"
+                      name="filter_ingredients_excl"
+                      id="filter_ingredients_excl"
+                      class="fake-chekbox-input"
+                    />
+                    <div class="fake-checkbox"></div>
+                  </label>
+                </div>
+                <div id="ingr_excl_fields" class="grid-column">
+                  <select
+                    name="ingredients_excl"
+                    class="ingredients_excl form-field-small"
+                  >
+                    <option value="0"></option>
+
+                    <% for(const ingrObj of ingredients){%>
+                    <option value="<%=ingrObj.ingredient_id%>">
+                      <%=ingrObj.ingredient_name%>
+                    </option>
+                    <% } %>
+                  </select>
+
+                  <input
+                    id="addIngrBtn2"
+                    type="button"
+                    value="Add Ingredient"
+                    onclick="addOptionTag(`#addIngrBtn2`,`.ingredients_excl`)"
+                    class="btn"
+                  />
+                </div>
+              </div>
+
+              <!-- CALORIES FILTER SECTION -->
+
+              <div class="grid-wrapper">
+                <div class="form-item">
+                  <label for="filter_cal" class="flex-wrapper form-item-label">
+                    <span class="label-text">Filter by calories:</span>
+                    <input
+                      type="checkbox"
+                      name="filter_cal"
+                      id="filter_cal"
+                      class="fake-chekbox-input"
+                    />
+                    <div class="fake-checkbox"></div>
+                  </label>
+                </div>
+                <div id="cal_fields" class="grid-column">
+                  <div class="flex-column">
+                    <label for="filter_cal_min">Min:</label>
+                    <input
+                      name="filter_cal_min"
+                      type="number"
+                      class="form-field-small"
+                    />
+                  </div>
+                  <div class="flex-column">
+                    <label for="filter_cal_max">Max:</label>
+                    <input
+                      name="filter_cal_max"
+                      type="number"
+                      class="form-field-small"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- CARBS FILTER SECTION -->
+
+              <div class="grid-wrapper">
+                <div class="form-item">
+                  <label
+                    for="filter_carbs"
+                    class="flex-wrapper form-item-label"
+                  >
+                    <span class="label-text">Filter by carbs:</span>
+                    <input
+                      type="checkbox"
+                      name="filter_carbs"
+                      class="fake-chekbox-input"
+                      id="filter_carbs"
+                    />
+                    <div class="fake-checkbox"></div>
+                  </label>
+                </div>
+                <div id="carb_fields" class="grid-column">
+                  <div class="flex-column">
+                    <label for="filter_carbs_min">Min:</label>
+                    <input
+                      name="filter_carbs_min"
+                      type="number"
+                      step="0.01"
+                      class="form-field-small"
+                    />
+                  </div>
+                  <div class="flex-column">
+                    <label for="filter_carbs_max">Max:</label>
+                    <input
+                      name="filter_carbs_max"
+                      type="number"
+                      step="0.01"
+                      class="form-field-small"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- FAT FILTER SECTION -->
+
+              <div class="grid-wrapper">
+                <div class="form-item">
+                  <label for="filter_fat" class="flex-wrapper form-item-label">
+                    <span class="label-text">Filter by fat:</span>
+                    <input
+                      type="checkbox"
+                      name="filter_fat"
+                      id="filter_fat"
+                      class="fake-chekbox-input"
+                    />
+                    <div class="fake-checkbox"></div>
+                  </label>
+                </div>
+                <div id="fat_fields" class="grid-column">
+                  <div class="flex-column">
+                    <label for="filter_fat_min">Min:</label>
+                    <input
+                      name="filter_fat_min"
+                      type="number"
+                      step="0.01"
+                      class="form-field-small"
+                    />
+                  </div>
+                  <div class="flex-column">
+                    <label for="filter_fat_max">Max:</label>
+                    <input
+                      name="filter_fat_max"
+                      type="number"
+                      step="0.01"
+                      class="form-field-small"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- PROTEIN FILTER SECTION -->
+
+              <div class="grid-wrapper">
+                <div class="form-item">
+                  <label
+                    for="filter_protein"
+                    class="flex-wrapper form-item-label"
+                  >
+                    <span class="label-text">Filter by protein:</span>
+                    <input
+                      type="checkbox"
+                      name="filter_protein"
+                      class="fake-chekbox-input"
+                      id="filter_protein"
+                    />
+                    <div class="fake-checkbox"></div>
+                  </label>
+                </div>
+                <div id="prot_fields" class="grid-column">
+                  <div class="flex-column">
+                    <label for="filter_protein_min">Min:</label>
+                    <input
+                      name="filter_protein_min"
+                      type="number"
+                      step="0.01"
+                      class="form-field-small"
+                    />
+                  </div>
+                  <div class="flex-column">
+                    <label for="filter_protein_max">Max:</label>
+                    <input
+                      name="filter_protein_max"
+                      type="number"
+                      step="0.01"
+                      class="form-field-small"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- SEARCH BUTTON -->
+              <input type="submit" value="Search" class="btn btn--large" />
+            </form>
+          </div>
+
+          <!-- SEARCH RESULT -->
+          <% if (typeof(recipes)!= `undefined`) {%>
+          <div id="recipes" class="recipes-cards">
+            <% for(let recipe of recipes){%>
+            <a href="recipe/<%=recipe.recipe_id%>" class="recipes-card">
+              <span class="card-span">Read more</span>
+              <div class="recipes-card__img">
+                <img
+                  src="img/recipes/<%=recipe.recipe_id%>.jpg"
+                  alt="<%=recipe.recipe_name%>"
+                />
+              </div>
+              <div class="recipes-card__desk">
+                <h3 class="title-3"><%=recipe.recipe_name%></h3>
+                <p><%=recipe.recipe_description%></p>
+              </div>
+              <div class="recipes-card__table">
+                <table>
+                  <tr>
+                    <th>Calories</th>
+                    <th>Carbs</th>
+                    <th>Fat</th>
+                    <th>Protein</th>
+                  </tr>
+                  <tr>
+                    <td><%=recipe.recipe_calorie %> Cal.</td>
+                    <td><%=recipe.recipe_carbs %> g/100g</td>
+                    <td><%=recipe.recipe_fats %> g/100g</td>
+                    <td><%=recipe.recipe_prots %> g/100g</td>
+                  </tr>
+                </table>
+              </div>
+            </a>
+            <%}%>
+          </div>
+          <%}%>
+        </div>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-content flex-wrapper">
+            <p>&copy; Copyright 2022</p>
+            <p>
+              UOL - CM2020 - Agile Software Projects - Team 10 (Tutor Group 2)
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="/js/scripts.js"></script>
+  </body>
+</html>

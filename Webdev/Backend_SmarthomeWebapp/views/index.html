@@ -1,0 +1,36 @@
+<!-- 
+      R1A: Display the name of the web application.
+      R1B:  Display links to other pagesor a navigation bar thatcontains links to other pages. 
+    -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>MySmartHome - Main</title>
+  </head>
+  <body>
+    <h1>MySmartHome - your all-in-one house assistant</h1>
+
+    <div class="nav-menu">
+      <div class="menu-item"><a href="/"> Main page</a></div>
+      <div class="menu-item"><a href="/about"> About</a></div>
+      <div class="menu-item"><a href="/list"> Device list</a></div>
+      <div class="menu-item"><a href="/deviceAdd"> Add new device</a></div>
+      <div class="menu-item">
+        <img src="img/house_icon.png" alt="smart-house" width="32" />
+      </div>
+    </div>
+
+    <% try{if(sysMsg){ %>
+    <div id="sysMsg" class="<%=sysMsg[0]%>"><%= sysMsg[1] %></div>
+    <% }} catch{ } %>
+    <p>
+      This application allows you to connect and control all your devices to
+      this single dashboard. To proceed, please select one of the available
+      options:
+    </p>
+  </body>
+</html>

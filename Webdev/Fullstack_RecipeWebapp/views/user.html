@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <link rel="stylesheet" href="../css/main.css" />
+    <title>Profile page</title>
+  </head>
+  <body>
+    <div id="overlay"></div>
+    <div class="page-wrapper">
+   
+      <!-- HEADER -->
+      <div class="header-top-wrapper">
+        <div class="container">
+          <div class="header-top flex-wrapper">
+            <a href="/" class="logo">
+              <img
+                src="../img/logo.png"
+                alt="logo"
+              />
+            </a>
+
+            <!-- NAV MENU -->
+            <div id="navMenu" class="nav-menu flex-wrapper">
+              <a  href="/">Main page</a>
+              <a class="active-link" href="/search">Search page</a>
+              <a href="/authorization">Authorization</a>
+              <a href="/admin">Admin page</a>
+              <a href="/create/recipe">Create recipe</a>
+            </div>
+             <button type="button" id="menu-toggle" class="menu-toggle" onclick="mobMenuClick(this,event)"><span></span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEADER -->
+      <div class="header-banner header-banner--short" style="background-image: url(../img/userBanner.jpg)">
+          <div class="container"> 
+            <div class="header-banner__title">
+              <h1 class="title-1">Account details: <% if (typeof user !== 'undefined') { %> <%= user.login
+      %> <%}%></h1>
+            </div>            
+          </div>
+      </div>
+
+      <!-- MAIN -->
+    <main class="main-page">
+      <div class="container">
+
+        <!-- USER PAGE CONTENT -->
+        <% if (typeof user !== 'undefined' && user?.role == 'user') {%>
+          <p>Hello, <%= user.login%></p>
+          <p>Initially user page allowed to submit recipes, check own reviews/ratings and manage favorite recipes.
+            Cut because of the time constraints...
+          </p>
+        <% }%>
+
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content flex-wrapper">
+        <p> &copy;  Copyright 2022</p>
+          <p>UOL - CM2020 - Agile Software Projects - Team 10 (Tutor Group 2)</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/js/scripts.js"></script>
+  </body>
+</html>

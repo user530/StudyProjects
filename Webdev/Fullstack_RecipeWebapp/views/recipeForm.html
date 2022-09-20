@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <title>Recipe Pages - Create Recipe</title>
+  </head>
+  <body>
+     <div id="overlay"></div>
+    <div class="page-wrapper">
+      <!-- HEADER -->
+      <div class="header-top-wrapper">
+        <div class="container">
+          <div class="header-top flex-wrapper">
+            <a href="/" class="logo">
+              <img
+                src="../img/logo.png"
+                alt="logo"
+              />
+            </a>
+
+            <!-- NAV MENU -->
+            <div id="navMenu" class="nav-menu flex-wrapper">
+              <a  href="/">Main page</a>
+              <a  href="/search">Search page</a>
+              <a  href="/authorization">Authorization</a>
+              <a  href="/admin">Admin page</a>
+              <a class="active-link" href="/create/recipe">Create recipe</a>
+            </div>
+             <button type="button" id="menu-toggle" class="menu-toggle" onclick="mobMenuClick(this,event)"><span></span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEADER -->
+      <div class="header-banner" style="background-image: url(../img/createBanner.jpg)">
+          <div class="container"> 
+            <div class="header-banner__title">
+              <h1 class="title-1">Add new recipe:</h1>
+            </div>            
+          </div>
+      </div>
+      
+    <!-- SYSTEM MESSAGES -->   
+    <% if (typeof(msg)!= `undefined`) {%>
+    <div class="notify-chips">
+          <p><%= msg%></p>
+           <div id="close-chips" onclick="closeChips(this)">+</div>
+    </div>
+    <% } %>
+
+    <!-- MAIN -->
+   <main class="main-page recipe-form-page">
+      <div class="container">
+        <div>
+          <form action="" method="post" enctype="multipart/form-data" class="form-grid-column">
+           <div class="form-grid-row">
+             <!-- RECIPE NAME -->
+            <div class="form-item">              
+              <input
+                type="text"
+                name="recipe_name"
+                id="recipe_name"
+                placeholder="Input recipe name"
+                class="form-field-light"
+              />              
+            </div>
+
+           <!-- RECIPE PREPTIME -->
+            <div class="form-item item-nowrap">
+                <input
+                type="number"
+                name="recipe_preptime"
+                id="recipe_preptime"
+                placeholder="Recipe preptime"
+                 class="form-field-light form-field-short"
+              />
+               <span class="time-span">min.</span> 
+            </div>
+
+           <!-- RECIPE IMG -->
+            <div>
+              <input
+                type="file"
+                name="recipe_img"
+                id="recipe_img"
+                accept="image/png, image/jpeg"
+                class="inputfile"
+              />
+              <label class="form-label btn " for="recipe_img">Select an image</label><span></span>
+            </div>
+           </div>
+
+
+           <!-- DIET BLOCK (Multiple) -->
+            <div class="form-item form-item--diet">
+             
+              <label for="dietTag" class="d-block text-20 text-accent">Diet tags:</label>
+              
+              <div class="grid-column">  
+                 <select name="dietTag" class="diet  form-field-light" >
+                    <option value="0"></option>
+                    <% for(const dietObj of diets){%>
+                    <option value="<%=dietObj.diet_id%>"><%=dietObj.diet_name%></option>
+                    <% } %>
+                  </select>
+
+                  <input
+                    id="addDietBtn"
+                    type="button"
+                    value="Add Diet Tag"
+                    onclick="addOptionTag(`#addDietBtn`, `.diet`)"
+                    class="btn"
+                  />
+                </div>  
+            </div>
+
+            <!-- INGREDIENT BLOCK -->
+            <div class="form-item">
+              <label class="text-20 text-accent">Ingredients: </label>
+              <!-- INGREDIENT ROW -->
+              <div class="ingredient-row">
+                <select
+                  name="ingredient"
+                  class="ingredient form-field-light"
+                  onchange="getUnits(this.value, this)"
+                  
+                >
+                  <option value="0"></option>
+                  <% for(const ingrObj of ingredients){%>
+                  <option value="<%=ingrObj.ingredient_id%>">
+                    <%=ingrObj.ingredient_name%>
+                  </option>
+                  <% } %>
+                </select>
+
+                <input
+                  type="number"
+                  name="ingredient_amount"
+                  class="ingredient_amount form-field-light form-field-number "
+                  placeholder="Amount"
+                  onchange="calculateNutr()"
+                />
+
+                <select
+                  name="unit"
+                  class="unit form-field-light"
+                  onchange="calculateNutr()"
+                 
+                ></select>
+              </div>
+
+              <input
+                id="addIngrBtn"
+                type="button"
+                value="Add Ingredient"
+                onclick="addIngredient()"
+                class="btn mt-25 width-fix"
+              />
+              <!-- INGREDIENT BLOCK END -->
+            </div>
+
+            <div class="recipe-form-list">
+              <!-- NUTRITION FACTORS -->
+              <div class="form-item">
+                <label for="Carbs">Carbs: </label>
+                <input
+                  id="carbs"
+                  type="text"
+                  name="Carbs"
+                  placeholder="Carbs"
+                  readonly
+                  class="unit form-field-light text-20 text-accent"
+                />
+                <span class="dim-span">g/100g</span>
+              </div>
+
+              <div class="form-item">
+                <label for="Fats">Fat: </label>
+                <input
+                  id="fats"
+                  type="text"
+                  name="Fats"
+                  placeholder="Fats"
+                  readonly
+                  class="unit form-field-light text-20 text-accent"
+                />
+                <span class="dim-span">g/100g</span>
+              </div>
+
+              <div class="form-item">
+                <label for="Prots">Protein:</label>
+                <input
+                  id="proteins"
+                  type="text"
+                  name="Prots"
+                  placeholder="Proteins"
+                  readonly
+                  class="unit form-field-light text-20 text-accent"
+                />
+               <span class="dim-span">g/100g</span>
+              </div>
+
+              <div class="form-item">
+                <label for="Cals">Calories:</label>
+                <input
+                  id="calories"
+                  type="text"
+                  name="Cals"
+                  placeholder="Calories"
+                  readonly
+                  class="unit form-field-light text-20 text-accent"
+                />
+               <span class="dim-span"> cal/100g</span>
+              </div>
+            </div>
+
+            <!-- RECIPE DESCRIPTION  -->
+            <div>
+              <textarea
+                name="recipe_descr"
+                id="description_area"
+                class="form-textarea"
+                placeholder="Recipe description"
+              ></textarea>
+            </div>
+
+            <div>
+              <div><label class="text-20 text-accent">Recipe steps:</label></div>
+              <div class="step_row">
+                <!-- STEP DESCRIPTIONS -->
+                <input type="text" name="recipe_step" placeholder="Recipe step" class="form-field-light"/>
+                <input type="text" name="recipe_step" placeholder="Recipe step" class="form-field-light"/>
+                <input type="text" name="recipe_step" placeholder="Recipe step" class="form-field-light"/>
+              </div>
+
+              <input
+                id="addStepBtn"
+                type="button"
+                value="Add step"
+                onclick="addStep()"
+                class="btn mt-25 width-fix"
+              />
+            </div>
+
+            <input type="submit" class="btn btn--large " value="CREATE RECIRE"/>
+          </form>
+        </div>
+      </div>
+    </main>
+      <script src="/js/scripts.js"></script>
+     
+      <!-- custom type file -->
+     <script>
+         ( function ( document, window, index )
+            {
+              var inputs = document.querySelectorAll( '.inputfile' );
+              Array.prototype.forEach.call( inputs, function( input )
+              {
+                var label	 = input.nextElementSibling,
+                  labelVal = label.innerHTML;
+
+                input.addEventListener( 'change', function( e )
+                {
+                  var fileName = '';
+                  if( this.files && this.files.length > 1 )
+                    fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+                  else
+                    fileName = e.target.value.split( '\\' ).pop();
+
+                  if( fileName ) {
+
+                    if ( label.firstChild.nodeType === Node.ELEMENT_NODE ) {
+                      label.querySelector( 'span' ).innerHTML = fileName;
+                    } else {
+                      label.nextElementSibling.innerHTML = fileName;
+                    }
+
+                    console.log(fileName);
+                  }
+                  else
+                    label.innerHTML = labelVal;
+                });
+
+                // Firefox bug fix
+                input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
+                input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+              });
+            }( document, window, 0 ));
+      </script>
+  </body>
+
+
+</html>
+

@@ -1,0 +1,60 @@
+<!-- 
+    - R4A: Display a list of already added devices and then let the user choose a device from the list. Display a link to the home page or a navigation bar that contains links to other pages.
+    - R4B: Display data related to the chosen device found in the database to users including name,  and  related  settings. As  an  example,  if  TV  is  selected  related  settings  would  be on/off  setting,  volume,and  channel.If the heating  system  is  chosen  minimum  settings,are on/off and temperature. Display a message to the user if not found.
+    - R4C: Improve R4B by automatically hiding input fields that do not apply to the chosen device.
+    - R4D: Going  beyond  by  improving  R4Band  R4C,  by a graphical  display  of  the  device settings like a dashboard. 
+ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>MySmartHome - Device status</title>
+  </head>
+  <body>
+    <% try{if(dbData && deviceHtml){ %>
+    <h1>Device status: <%= dbData[`name`] %></h1>
+
+    <div class="nav-menu">
+      <div class="menu-item"><a href="/"> Main page</a></div>
+      <div class="menu-item"><a href="/about"> About</a></div>
+      <div class="menu-item"><a href="/list"> Device list</a></div>
+      <div class="menu-item"><a href="/deviceAdd"> Add new device</a></div>
+      <div class="menu-item">
+        <img src="img/house_icon.png" alt="smart-house" width="32" />
+      </div>
+    </div>
+
+    <div id="contentWrapper"><%- deviceHtml %></div>
+
+    <br /><br /><br />
+
+    <a href="/deviceUpdate?device=<%= dbData[`id`] %>">
+      <input type="button" value="Update device settings" />
+    </a>
+
+    <a
+      href="/deviceDelete?device=<%= dbData[`id`] %>"
+      onclick="return confirm(`Are you sure you want to delete this item?`)"
+    >
+      <input type="button" value="Delete device" />
+    </a>
+
+    <%}}catch{%>
+    <h1>Something went wrong...</h1>
+
+    <div class="nav-menu">
+      <div class="menu-item"><a href="/"> Main page</a></div>
+      <div class="menu-item"><a href="/about"> About</a></div>
+      <div class="menu-item"><a href="/list"> Device list</a></div>
+      <div class="menu-item"><a href="/deviceAdd"> Add new device</a></div>
+      <div class="menu-item">
+        <img src="img/house_icon.png" alt="smart-house" width="32" />
+      </div>
+    </div>
+
+    <%} %>
+  </body>
+</html>

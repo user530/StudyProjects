@@ -1,0 +1,192 @@
+@media(max-width: 1199px){
+    .review-item{
+    margin-bottom: 0px;
+    }
+    
+.mail-img{
+    bottom: 25%;
+    left: 3%;
+}
+
+.mail-img2{
+    bottom: 25%;
+    right: 4%;
+}
+}
+
+@media(max-width: 991px){
+    .title3{
+    font-size: 26px;
+    }
+    
+    .img-block .owl-dots .owl-dot{
+    height: 12px;
+    width: 12px;
+    margin-right: 6px;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: transparent;
+    }
+    
+    input.mail-input, .contact-form-modal textarea{
+        width: 80%;
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    
+    .mail-img, .mail-img2{
+        width: 100px;
+    }
+    
+}
+
+@media(max-width: 767px){
+        
+    .nav-menu{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.75);
+        z-index: 5;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 100px;
+        transform: translateX(-100%);
+        transition: .5s;
+    }
+    .nav-menu.active{
+         transform: translateX(0%);
+    }
+    .menu-item{
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .close-menu{
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 5;
+        color:#fff;
+        display: flex;
+        transition: 0.3s;
+    }
+    .menu-toggle{
+        display: block;
+        transition: 0.3s;
+    }
+    .menu-toggle:hover a, a.close-menu:hover{
+        color: orange;
+    }
+    
+    .header_title{
+        width: 100%;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .title1{
+        font-size: 36px;
+    }
+    
+    .button-block{
+    margin-top: 15vh!important;
+    }
+    
+    .review-item{
+        max-width: 400px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 30px;
+        padding-right: 20px;
+        padding-left: 20px;
+        font-size: 14px;
+    }
+    
+    .mailing-form h2{
+        font-size: 28px;
+    }
+    
+    .mailing-form p{
+        font-size: 16px;
+        max-width: 100%;
+    }
+    
+    .mail-img, .mail-img2{
+        display: none;
+    }
+    
+    .footer-content{
+        flex-direction: column;
+    }
+    
+    .footer-col1, .footer-col2, .footer-col3{
+        width: 100%;
+    }
+    
+    .contacts li{
+        font-size: 16px;
+    }
+    
+    .contacts li span:first-child{
+        min-width: 100px;
+    }
+    
+    .contacts li a{
+        white-space: nowrap;
+    }
+    
+    .footer-col2{
+        order: 3;
+    }
+    
+    .social-icon{
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+    .social-icon a{
+        width: 60px;
+        height: 60px;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-style: 25px;
+        border: 2px solid blue;
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+    
+    .social-icon a:hover{
+        border: 2px solid white;
+        box-shadow: 0 0 25px rgba(255,255,255, 0.75);
+    }
+    
+    .social-icon a:not(:last-child){
+        margin-right: 40px;
+    }
+    
+    .gallery-page .title1{
+        font-size: 32px;
+    }
+    
+    .left-col{
+        padding-bottom: 30px;
+    }
+    
+    
+}
+

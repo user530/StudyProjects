@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <title>Recipe Pages - Page Not Found</title>
+  </head>
+  <body>
+    <div id="overlay"></div>
+    <div class="page-wrapper">
+      <!-- HEADER -->
+      <div class="header-top-wrapper">
+        <div class="container">
+          <div class="header-top flex-wrapper">
+            <a href="/" class="logo">
+              <img src="../img/logo.png" alt="logo" />
+            </a>
+
+            <!-- NAV MENU -->
+            <div id="navMenu" class="nav-menu flex-wrapper">
+              <a href="/">Main page</a>
+              <a href="/search">Search page</a>
+              <a href="/authorization">Authorization</a>
+              <a href="/admin">Admin page</a>
+              <a href="/create/recipe">Create recipe</a>
+            </div>
+
+            <button
+              type="button"
+              id="menu-toggle"
+              class="menu-toggle"
+              onclick="mobMenuClick(this,event)"
+            >
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <main
+        class="main-page main-page-404"
+        style="
+          background-image: url(https://img0.liveinternet.ru/images/attach/d/2/147/756/147756670_59.png);
+        "
+      >
+        <div class="container">
+          <div class="text-404">
+            <p>The page you requested is not there, please try another one</p>
+            <a href="/" class="btn width-fix"> Back</a>
+          </div>
+        </div>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-content flex-wrapper">
+            <p>&copy; Copyright 2022</p>
+            <p>
+              UOL - CM2020 - Agile Software Projects - Team 10 (Tutor Group 2)
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="/js/scripts.js"></script>
+  </body>
+</html>

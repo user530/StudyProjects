@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Recipe Pages - Authorization</title>
+  </head>
+  <body>
+    <div id="overlay"></div>
+    <div class="page-wrapper">
+      <!-- HEADER -->
+      <div class="header-top-wrapper">
+        <div class="container">
+          <div class="header-top flex-wrapper">
+            <a href="/" class="logo">
+              <img src="../img/logo.png" alt="logo" />
+            </a>
+
+            <!-- NAV MENU -->
+            <div id="navMenu" class="nav-menu flex-wrapper">
+              <a href="/">Main page</a>
+              <a href="/search">Search page</a>
+              <a class="active-link" href="/authorization">Authorization</a>
+              <a href="/admin">Admin page</a>
+              <a href="/create/recipe">Create recipe</a>
+            </div>
+
+            <button
+              type="button"
+              id="menu-toggle"
+              class="menu-toggle"
+              onclick="mobMenuClick(this,event)"
+            >
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEADER BANNER -->
+      <div
+        class="header-banner header-banner--short"
+        style="background-image: url(../img/authBanner.png)"
+      >
+        <div class="container">
+          <div class="header-banner__title">
+            <h1 class="title-1">Authorization:</h1>
+          </div>
+        </div>
+      </div>
+
+      <!-- SYSTEM MESSAGES -->
+
+      <% if (typeof(msg)!= `undefined`) {%>
+      <div class="notify-chips">
+        <p><%= msg%></p>
+        <div id="close-chips" onclick="closeChips(this)">+</div>
+      </div>
+      <% } %>
+
+      <!-- MAIN -->
+      <main class="main-page recipes-page">
+        <div class="container">
+          <div class="form_wrapper">
+            <!-- LOGIN FORM BLOCK -->
+            <div class="form_block form_active w-100 text-center">
+              <h2>Login:</h2>
+              <form action="/login" method="post" class="account-form">
+                <div class="form-item mb-25">
+                  <input
+                    type="text"
+                    name="user_name"
+                    placeholder="Account name"
+                    class="form-field"
+                  />
+                </div>
+                <div class="form-item mb-25">
+                  <input
+                    type="password"
+                    name="user_password"
+                    class="form-field"
+                    placeholder="Account password"
+                  />
+                </div>
+                <div class="form-item mb-25">
+                  <label class="flex-wrapper form-item-label">
+                    <input
+                      type="checkbox"
+                      name="user_bind_ip"
+                      class="fake-chekbox-input"
+                    />
+                    <div class="fake-checkbox"></div>
+                    <span class="label-text text-left ml-15">Bind to IP:</span>
+                  </label>
+                </div>
+
+                <div class="form-item form-item--bottom">
+                  <input
+                    type="submit"
+                    value="Log-In"
+                    class="btn btn--large w-100"
+                  />
+                </div>
+              </form>
+              <button
+                type="button"
+                onclick="toggleForms()"
+                class="mt-25 text-button"
+              >
+                Switch to Register
+              </button>
+            </div>
+            <!-- REGISTER FORM BLOCK -->
+            <div class="form_block w-100 text-center">
+              <h2>Register Account:</h2>
+              <form
+                action="/register"
+                method="post"
+                name="register"
+                class="account-form"
+              >
+                <div class="form-item mb-25">
+                  <label>
+                    <input
+                      type="text"
+                      name="user_name"
+                      class="form-field"
+                      placeholder="Account name"
+                    />
+                  </label>
+                </div>
+                <div class="form-item mb-25">
+                  <label>
+                    <input
+                      type="password"
+                      name="user_password"
+                      class="form-field"
+                      placeholder="Account password"
+                    />
+                  </label>
+                </div>
+                <div class="form-item form-item--bottom">
+                  <input
+                    type="submit"
+                    class="btn btn--large w-100"
+                    value="Register"
+                  />
+                </div>
+              </form>
+              <button
+                type="button"
+                class="text-button mt-25"
+                onclick="toggleForms()"
+              >
+                Switch to Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-content flex-wrapper">
+            <p>&copy; Copyright 2022</p>
+            <p>
+              UOL - CM2020 - Agile Software Projects - Team 10 (Tutor Group 2)
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="/js/scripts.js"></script>
+  </body>
+</html>

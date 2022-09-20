@@ -1,0 +1,34 @@
+{
+  "name": "smarthouse_dashboard_tmv",
+  "version": "1.0.0",
+  "description": "Express application project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/user530/expressProjectDB.git"
+  },
+  "keywords": [
+    "express",
+    "ejs",
+    "mysql"
+  ],
+  "author": "tmv",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/user530/expressProjectDB/issues"
+  },
+  "homepage": "https://github.com/user530/expressProjectDB#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "express-sanitizer": "^1.0.6",
+    "md5": "^2.3.0",
+    "mysql": "^2.18.1"
+  }
+}

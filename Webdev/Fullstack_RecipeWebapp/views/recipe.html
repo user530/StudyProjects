@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <title>Recipe Pages - <%= recipe_name %> page</title>
+  </head>
+  <body>
+    <div id="overlay"></div>
+    <div class="page-wrapper">
+      <!-- HEADER -->
+      <div class="header-top-wrapper">
+        <div class="container">
+          <div class="header-top flex-wrapper">
+            <a href="/" class="logo">
+              <img src="../img/logo.png" alt="logo" />
+            </a>
+
+            <!-- NAV MENU -->
+            <div id="navMenu" class="nav-menu flex-wrapper">
+              <a href="/">Main page</a>
+              <a class="active-link" href="/recipe/<%= recipe_id%>">Recipe</a>
+              <a href="/search">Search page</a>
+              <a href="/authorization">Authorization</a>
+              <a href="/admin">Admin page</a>
+              <a href="/create/recipe">Create recipe</a>
+            </div>
+            <button
+              type="button"
+              id="menu-toggle"
+              class="menu-toggle"
+              onclick="mobMenuClick(this,event)"
+            >
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEADER -->
+      <div
+        class="header-banner header-banner--short"
+        style="background-image: url(../img/recipes/<%= recipe_id%>.jpg)"
+      >
+        <div class="container">
+          <div class="header-banner__title">
+            <h1 class="title-1">Recipe page: <%= recipe_name %></h1>
+          </div>
+        </div>
+      </div>
+
+      <main class="main-page recipes-page">
+        <div class="container">
+          <div class="mb-40">
+            <div class="title-2 text-accent">DESCRIPTION:</div>
+            <div class="descr_wrapper text-20"><%= recipe_descr %></div>
+          </div>
+
+          <!-- NUTRITION SUMMARY -->
+
+          <div class="main-page-row mb-40">
+            <div>
+              <div class="title-2 text-accent">NUTRITION SUMMARY:</div>
+              <ul class="info_wrapper">
+                <li class="list-item">
+                  <span>Calories:</span> <%= recipe_cal %> calories/100 g
+                </li>
+                <li class="list-item">
+                  <span>Carbs:</span> <%= recipe_carbs %> g/100 g
+                </li>
+                <li class="list-item">
+                  <span>Fat:</span> <%= recipe_fats %> g/100 g
+                </li>
+                <li class="list-item">
+                  <span>Protein:</span> <%= recipe_prots %> g/100 g
+                </li>
+              </ul>
+            </div>
+
+            <!-- INGREDIENTS -->
+            <div>
+              <div class="title-2 text-accent">INGREDIENTS:</div>
+              <div class="ingr_wrapper">
+                <ul>
+                  <% for(const ingredientStr of recipe_ingredients){%>
+                  <li class="list-item"><%= ingredientStr %></li>
+                  <% } %>
+                </ul>
+              </div>
+            </div>
+            <!-- DIETS -->
+            <div class="mb-40">
+              <div class="title-2 text-accent">DIETS:</div>
+              <ul>
+                <% for(const diet of recipe_diets) {%>
+                <li class="list-item"><%= diet %></li>
+                <% } %>
+              </ul>
+            </div>
+          </div>
+          <!-- PREPARATION TIME -->
+          <div class="mb-40">
+            <div class="title-2 text-accent">
+              PREPARATION TIME: <%= recipe_time %> MIN.
+            </div>
+          </div>
+
+          <div>
+            <div class="title-2 text-accent">STEPS:</div>
+            <ol>
+              <% for(const step of recipe_steps){ %>
+              <li class="list-item text-20"><%=step%></li>
+
+              <%} %>
+            </ol>
+          </div>
+        </div>
+        <div class="decore-img">
+          <img src="../img/sideImg.png" alt="sideImg" />
+        </div>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-content flex-wrapper">
+            <p>&copy; Copyright 2022</p>
+            <p>
+              UOL - CM2020 - Agile Software Projects - Team 10 (Tutor Group 2)
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="/js/scripts.js"></script>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>MySmartHome - Device list</title>
+  </head>
+  <body>
+    <h1>List of all items</h1>
+
+    <div class="nav-menu">
+      <div class="menu-item"><a href="/"> Main page</a></div>
+      <div class="menu-item"><a href="/about"> About</a></div>
+      <div class="menu-item"><a href="/list"> Device list</a></div>
+      <div class="menu-item"><a href="/deviceAdd"> Add new device</a></div>
+      <div class="menu-item">
+        <img src="img/house_icon.png" alt="smart-house" width="32" />
+      </div>
+    </div>
+
+    <% try{if(sysMsg){%>
+    <div id="sysMsg" class="<%=sysMsg[0]%>"><%= sysMsg[1] %></div>
+    <%}}catch{}; %>
+
+    <br />
+
+    <% if(devices.length > 0){%>
+    <table>
+      <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Check settings</th>
+        <th>Change settings</th>
+        <th>Delete device</th>
+      </tr>
+      <% for(let i = 0; i < devices.length;i++){%>
+      <tr>
+        <td><%=i+1%></td>
+        <td><%=devices[i].name%></td>
+        <td><%=devices[i].type%></td>
+        <td>
+          <a href="/deviceStatus?device=<%=devices[i].id%>"
+            >Check - <%=devices[i].name%></a
+          >
+        </td>
+        <td>
+          <a href="/deviceUpdate?device=<%=devices[i].id%>"
+            >Change settings - <%=devices[i].name%></a
+          >
+        </td>
+        <td>
+          <a
+            href="/deviceDelete?device=<%=devices[i].id%>"
+            onclick="return confirm(`Are you sure you want to delete this item?`)"
+            >Delete - <%=devices[i].name%></a
+          >
+        </td>
+      </tr>
+      <%}%>
+    </table>
+    <%}else{%>
+    <p>
+      There are no devices to display yet. Please add some smart devices and
+      check later!
+    </p>
+    <%} %>
+
+  </body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Recipe Pages - Main page</title>
+  </head>
+  <body>
+    <div id="overlay"></div>
+    <div class="page-wrapper">
+      <!-- HEADER -->
+      <div class="header-top-wrapper">
+        <div class="container">
+          <div class="header-top flex-wrapper">
+            <a href="/" class="logo">
+              <img
+                src="../img/logo.png"
+                alt="logo"
+              />
+            </a>
+
+            <!-- NAV MENU -->
+            <div id="navMenu" class="nav-menu flex-wrapper">
+              <a class="active-link" href="/">Main page</a>
+              <a href="/search">Search page</a>
+              <a href="/authorization">Authorization</a>
+              <a href="/admin">Admin page</a>
+              <a href="/create/recipe">Create recipe</a>
+            </div>
+            <button type="button" id="menu-toggle" class="menu-toggle" onclick="mobMenuClick(this,event)"><span></span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEADER -->
+      <div class="header-banner">
+          <div class="container"> 
+            <div class="header-banner__title">
+              <h1 class="title-1">Recipe Pages - Meal prep app</h1>
+            </div>
+            
+          </div>
+      </div>
+
+      <!-- MAIN -->
+      <main class="main-page">
+        <div class="container">
+          <div class="search-panel">
+            <input
+              id="search_field"
+              class="search-field form-field"
+              name="filter"
+              type="search"
+              oninput="requestRecipeCards(this.value)"
+              placeholder="Search the recipes"
+            />
+          </div>
+
+          <div id="recipes" class="recipes-cards">
+            <% for(const recipe of recipes){%>
+            
+              <a href="recipe/<%=recipe.recipe_id%>" class="recipes-card">
+                  <span class="card-span">Read more</span>
+                  <div class="recipes-card__img">
+                    <img
+                      src="img/recipes/<%=recipe.recipe_id%>.jpg"
+                      alt="<%=recipe.recipe_name%>"
+                      
+                    />
+                  </div>
+                  <div class="recipes-card__desk">
+                    <h3 class="title-3"><%=recipe.recipe_name%></h3>
+                    <p><%=recipe.recipe_description%></p>
+                  </div>
+                  <div class="recipes-card__table">
+                    <table>
+                      <tr>
+                        <th>Calories</th>
+                        <th>Carbs</th>
+                        <th>Fat</th>
+                        <th>Protein</th>
+                      </tr>
+                      <tr>
+                        <td><%=recipe.recipe_calorie %> Cal.</td>
+                        <td><%=recipe.recipe_carbs %> g/100g</td>
+                        <td><%=recipe.recipe_fats %> g/100g</td>
+                        <td><%=recipe.recipe_prots %> g/100g</td>
+                      </tr>
+                    </table>
+                  </div>
+              </a>
+
+
+            <% } %>
+          </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+          <div class="container">
+            <div class="footer-content flex-wrapper">
+            <p> &copy;  Copyright 2022</p>
+             <p>UOL - CM2020 - Agile Software Projects - Team 10 (Tutor Group 2)</p>
+            </div>
+          </div>
+
+        </footer>
+      </div>
+    </div>
+    <script src="/js/scripts.js"></script>
+  </body>
+</html>
